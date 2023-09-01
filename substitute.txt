@@ -1,14 +1,8 @@
-Sub DataInput()
-    Dim wb As Workbook
-    Dim ws As Worksheet
+Sub SubstituteMain()
     Dim strInput As String
-    'strInput = InputBox("Specify column name for substituting", "Specify column name to substitute", "Enter column name HERE")
     
     Dim toSubColumn As Range
-    Set toSubColumn = Application.InputBox("Pick Column perform substitution", , , , , , , 8)
-    For Each cell In toSubColumn.Cells
-        Debug.Print cell.Address, cell.Value
-    Next
+    Set toSubColumn = Application.InputBox("Pick Column that needs to be substituted", , , , , , , 8)
     
     'GET THE REFERENCE TABLE
     'Dim referenceTable As Range
@@ -22,25 +16,33 @@ Sub DataInput()
     fileName = Application.GetOpenFilename(FileFilter:="Excel Files (*.xlsx), *.xlsx", Title:="Please the Excel file contianing the reference table")
     Set refWorkBook = Application.Workbooks.Open(fileName)
     Dim ref As Worksheet
-    Set ref = refWorkBook.Worksheets("Sheet1")
-
-    Dim LO As ListObject
-    Set LO = ref.ListObjects("Table1") 'default table name set by Excel
-    Set l = LO.Range
-
-    'For Each cell In l.Cells
-    '    Debug.Print cell.Address, cell.Value
-    'Next
+    Set ref = refWorkBook.Worksheets("Sheet1") 'Assume table is in worksheet named Sheet1
+    'Dim LO As ListObject
+    'Set LO = ref.ListObjects("Table1") 'default table name set by Excel
     
     'Create dictionary based on reference table
     Dim dict As Object
     Set dict = CreateDict(ref)
-    Dim key As Variant
-    For Each key In dict.Keys
-        Debug.Print key, dict(key)
-    Next key
+    'Dim key As Variant
+    'For Each key In dict.Keys
+    '    Debug.Print key, dict(key)
+    'Next key
+    
+    'Replace input column data with dictionary value
+    For Each cell In toSubColumn.Cells
+        Dim k, v, prev As String
+        k = cell.Value
+        If dict.Exists(k) Then
+            v = dict(k)
+            prev = k
+            cell.Value = v 'set value of the cell to the value to substitute
+            'Debug.Print prev, "was changed to", cell.Value
+            MsgBox "Finished substitution."
+        End If
+    Next
     
 End Sub
+
 
 Function CreateDict(ws As Worksheet) As Object
     Dim numberOfRows As Long
@@ -63,7 +65,6 @@ Function CreateDict(ws As Worksheet) As Object
                 dictionary.Add key, val
             End If
         End If
-        Debug.Print key
     Next
     Set CreateDict = dictionary
     
