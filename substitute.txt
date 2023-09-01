@@ -1,10 +1,8 @@
-Sub SubstituteMain()
-    Dim strInput As String
-    
+Sub SubstituteMain()  
+    'Prompt user to select range of cells to perform substitution on
     Dim toSubColumn As Range
-    Set toSubColumn = Application.InputBox("Pick Column that needs to be substituted", , , , , , , 8)
+    Set toSubColumn = Application.InputBox("Pick range to perform substitution on", , , , , , , 8)
     
-    'GET THE REFERENCE TABLE
     'Dim referenceTable As Range
     'Set referenceTable = Application.InputBox("Pick reference table", , , , , , , 8)
     'For Each cell In referenceTable.Cells
@@ -20,7 +18,7 @@ Sub SubstituteMain()
     'Dim LO As ListObject
     'Set LO = ref.ListObjects("Table1") 'default table name set by Excel
     
-    'Create dictionary based on reference table
+    'Create dictionary based on reference table for easy lookup
     Dim dict As Object
     Set dict = CreateDict(ref)
     'Dim key As Variant
@@ -28,7 +26,7 @@ Sub SubstituteMain()
     '    Debug.Print key, dict(key)
     'Next key
     
-    'Replace input column data with dictionary value
+    'Replace selected data range with dictionary value
     For Each cell In toSubColumn.Cells
         Dim k, v, prev As String
         k = cell.Value
@@ -43,7 +41,7 @@ Sub SubstituteMain()
     
 End Sub
 
-
+'Function to help create dictionary out of supplied table of 2 columns (key, value)
 Function CreateDict(ws As Worksheet) As Object
     Dim numberOfRows As Long
     Dim dictionary As Object
@@ -60,7 +58,7 @@ Function CreateDict(ws As Worksheet) As Object
         val = arrValues(i, 2)
         If Len(key) > 0 Then
             If dictionary.Exists(key) Then
-                dictionary.Item(key) = dictionary.Item(key) & "/" & val
+                dictionary.Item(key) = val
             Else
                 dictionary.Add key, val
             End If
