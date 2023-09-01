@@ -28,10 +28,43 @@ Sub DataInput()
     Set LO = ref.ListObjects("Table1") 'default table name set by Excel
     Set l = LO.Range
 
-    For Each cell In l.Cells
-        Debug.Print cell.Address, cell.Value
-    Next
+    'For Each cell In l.Cells
+    '    Debug.Print cell.Address, cell.Value
+    'Next
     
-    'Make dictionary based on reference table
+    'Create dictionary based on reference table
+    Dim dict As Object
+    Set dict = CreateDict(ref)
+    Dim key As Variant
+    For Each key In dict.Keys
+        Debug.Print key, dict(key)
+    Next key
     
 End Sub
+
+Function CreateDict(ws As Worksheet) As Object
+    Dim numberOfRows As Long
+    Dim dictionary As Object
+    Dim arrValues As Variant, key As Variant, val As Variant, i As Long
+
+    numberOfRows = ws.UsedRange.Rows.Count
+    Set dictionary = CreateObject("Scripting.Dictionary")
+
+    ' Load values of used range to memory
+    arrValues = ws.UsedRange.Value
+    ' Assuming the Key is on first column and Value is on next
+    For i = 1 To UBound(arrValues)
+        key = arrValues(i, 1)
+        val = arrValues(i, 2)
+        If Len(key) > 0 Then
+            If dictionary.Exists(key) Then
+                dictionary.Item(key) = dictionary.Item(key) & "/" & val
+            Else
+                dictionary.Add key, val
+            End If
+        End If
+        Debug.Print key
+    Next
+    Set CreateDict = dictionary
+    
+End Function
