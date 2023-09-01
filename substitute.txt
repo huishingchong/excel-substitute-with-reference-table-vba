@@ -1,0 +1,6 @@
+Sub RowBold()
+    Dim ws As Worksheet
+    Set ws = ActiveSheet
+    Dim strInput As String
+    Worksheets(ws.Name).Rows(1).Font.Bold = True
+End Sub
