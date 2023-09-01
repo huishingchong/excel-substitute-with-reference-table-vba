@@ -1,6 +1,13 @@
-Sub RowBold()
+Sub SelectColumn()
     Dim ws As Worksheet
     Set ws = ActiveSheet
     Dim strInput As String
-    Worksheets(ws.Name).Rows(1).Font.Bold = True
+    'strInput = InputBox("Specify column name for substituting", "Specify column name to substitute", "Enter column name HERE")
+    
+    Dim toSubColumn As Range
+    Set toSubColumn = Application.InputBox("Pick Column perform substitution", , , , , , , 8)
+    For Each cell In toSubColumn.Cells
+        Debug.Print cell.Address, cell.Value
+    Next
+
 End Sub
