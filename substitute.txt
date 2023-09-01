@@ -1,6 +1,6 @@
-Sub SelectColumn()
+Sub DataInput()
+    Dim wb As Workbook
     Dim ws As Worksheet
-    Set ws = ActiveSheet
     Dim strInput As String
     'strInput = InputBox("Specify column name for substituting", "Specify column name to substitute", "Enter column name HERE")
     
@@ -9,5 +9,29 @@ Sub SelectColumn()
     For Each cell In toSubColumn.Cells
         Debug.Print cell.Address, cell.Value
     Next
+    
+    'GET THE REFERENCE TABLE
+    'Dim referenceTable As Range
+    'Set referenceTable = Application.InputBox("Pick reference table", , , , , , , 8)
+    'For Each cell In referenceTable.Cells
+    '    Debug.Print cell.Address, cell.Value
+    'Next
+    
+    'Prompt user to select reference excel file
+    Dim fileName As String
+    fileName = Application.GetOpenFilename(FileFilter:="Excel Files (*.xlsx), *.xlsx", Title:="Please the Excel file contianing the reference table")
+    Set refWorkBook = Application.Workbooks.Open(fileName)
+    Dim ref As Worksheet
+    Set ref = refWorkBook.Worksheets("Sheet1")
 
+    Dim LO As ListObject
+    Set LO = ref.ListObjects("Table1") 'default table name set by Excel
+    Set l = LO.Range
+
+    For Each cell In l.Cells
+        Debug.Print cell.Address, cell.Value
+    Next
+    
+    'Make dictionary based on reference table
+    
 End Sub
