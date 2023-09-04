@@ -1,4 +1,8 @@
 Sub SubstituteMain()
+    Dim wb As String
+    wb = ActiveWorkbook.FullName 'Gets the full path of the current workbook
+    Workbooks.Open (wb)
+    
     'Prompt user to select range of cells to perform substitution on
     Dim toSubColumn As Range
     Set toSubColumn = Application.InputBox("Pick range to perform substitution on", , , , , , , 8)
@@ -12,11 +16,9 @@ Sub SubstituteMain()
     'Prompt user to select reference excel file
     Dim FileName As String
     FileName = Application.GetOpenFilename(FileFilter:="Excel Files (*.xlsx), *.xlsx", Title:="Please the Excel file contianing the reference table")
-    Set refWorkBook = Application.Workbooks.Open(FileName)
+    Set refWorkBook = GetObject(FileName)
     Dim ref As Worksheet
     Set ref = refWorkBook.Worksheets("Sheet1") 'Assume table is in worksheet named Sheet1
-    'Dim LO As ListObject
-    'Set LO = ref.ListObjects("Table1") 'default table name set by Excel
     
     'Create dictionary based on reference table for easy lookup
     Dim dict As Object
@@ -37,6 +39,7 @@ Sub SubstituteMain()
             'Debug.Print prev, "was changed to", cell.Value
         End If
     Next
+    Workbooks.Open (wb)
     MsgBox "Finished substitution."
     
 End Sub
