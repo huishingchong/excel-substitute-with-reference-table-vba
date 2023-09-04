@@ -19,7 +19,7 @@ It is assumed that the reference table in the supplied reference excel file adhe
 ## Instructions to use VBA
 If you're not familiar with running VBA, you can follow the steps below.
 1. Start with opening your Excel file where you want to run the vba on. (the Excel sheet you want to perform substitution on)
-2. Check that you have a 'Developer' Tab in the ribbon. If you don't have a 'Developer' tab, follow [these instructions]([url](https://support.microsoft.com/en-us/office/show-the-developer-tab-e1192344-5e56-4d45-931b-e5fd9bea2d45#:~:text=How%20to%20Get%20to%20the%20Developer%20Tab%20in,%2C%20select%20the%20Developer%20check%20box.%20See%20More.)https://support.microsoft.com/en-us/office/show-the-developer-tab-e1192344-5e56-4d45-931b-e5fd9bea2d45#:~:text=How%20to%20Get%20to%20the%20Developer%20Tab%20in,%2C%20select%20the%20Developer%20check%20box.%20See%20More.) to enable it.
+2. Check that you have a 'Developer' Tab in the ribbon. If you don't have a 'Developer' tab, follow [these instructions](https://support.microsoft.com/en-us/office/show-the-developer-tab-e1192344-5e56-4d45-931b-e5fd9bea2d45#:~:text=How%20to%20Get%20to%20the%20Developer%20Tab%20in,%2C%20select%20the%20Developer%20check%20box.%20See%20More.) to enable it.
 3. In the 'Developer' tab, Click 'Visual Basic', a pop-up screen will appear
 4. Click Insert > Module and a blank editor will appear
 5. Copy the VBA code in the github repository to the editor
