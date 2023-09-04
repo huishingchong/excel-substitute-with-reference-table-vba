@@ -1,4 +1,4 @@
-Sub SubstituteMain()  
+Sub SubstituteMain()
     'Prompt user to select range of cells to perform substitution on
     Dim toSubColumn As Range
     Set toSubColumn = Application.InputBox("Pick range to perform substitution on", , , , , , , 8)
@@ -10,9 +10,9 @@ Sub SubstituteMain()
     'Next
     
     'Prompt user to select reference excel file
-    Dim fileName As String
-    fileName = Application.GetOpenFilename(FileFilter:="Excel Files (*.xlsx), *.xlsx", Title:="Please the Excel file contianing the reference table")
-    Set refWorkBook = Application.Workbooks.Open(fileName)
+    Dim FileName As String
+    FileName = Application.GetOpenFilename(FileFilter:="Excel Files (*.xlsx), *.xlsx", Title:="Please the Excel file contianing the reference table")
+    Set refWorkBook = Application.Workbooks.Open(FileName)
     Dim ref As Worksheet
     Set ref = refWorkBook.Worksheets("Sheet1") 'Assume table is in worksheet named Sheet1
     'Dim LO As ListObject
@@ -35,9 +35,9 @@ Sub SubstituteMain()
             prev = k
             cell.Value = v 'set value of the cell to the value to substitute
             'Debug.Print prev, "was changed to", cell.Value
-            MsgBox "Finished substitution."
         End If
     Next
+    MsgBox "Finished substitution."
     
 End Sub
 
