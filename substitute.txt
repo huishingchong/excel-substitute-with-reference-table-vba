@@ -7,18 +7,12 @@ Sub SubstituteMain()
     Dim toSubColumn As Range
     Set toSubColumn = Application.InputBox("Pick range to perform substitution on", , , , , , , 8)
     
-    'Dim referenceTable As Range
-    'Set referenceTable = Application.InputBox("Pick reference table", , , , , , , 8)
-    'For Each cell In referenceTable.Cells
-    '    Debug.Print cell.Address, cell.Value
-    'Next
-    
     'Prompt user to select reference excel file
     Dim FileName As String
     FileName = Application.GetOpenFilename(FileFilter:="Excel Files (*.xlsx), *.xlsx", Title:="Please the Excel file contianing the reference table")
     Set refWorkBook = GetObject(FileName)
     Dim ref As Worksheet
-    Set ref = refWorkBook.Worksheets("Sheet1") 'Assume table is in worksheet named Sheet1
+    Set ref = refWorkBook.Worksheets("Sheet1") 'Assume table is in worksheet named Sheet1, you can change it to the name of your worksheet here
     
     'Create dictionary based on reference table for easy lookup
     Dim dict As Object
@@ -55,7 +49,7 @@ Function CreateDict(ws As Worksheet) As Object
 
     ' Load values of used range to memory
     arrValues = ws.UsedRange.Value
-    ' Assuming the Key is on first column and Value is on next
+    ' Assuming the Key is on column A and Value is on column B
     For i = 1 To UBound(arrValues)
         key = arrValues(i, 1)
         val = arrValues(i, 2)
