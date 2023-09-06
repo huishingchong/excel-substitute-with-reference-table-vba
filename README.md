@@ -11,8 +11,9 @@ The reference excel file will need to have a table to lookup on instances to sub
 It is assumed that the reference table in the supplied reference excel file adhere the following requirements:
 - Reference table is a Table on Excel
 - Reference table is in a worksheet named "Sheet1" of the Excel file supplied
-- Reference table is named "Table1" (this is also the default by Excel)
-- Reference table contains _two_ columns
+  - So change your reference table worksheet name to "Sheet1"
+  - Alternatively, you can change the code to the name of your worksheet (Line 15, where ref is defined)
+- There is only _one_ table in the worksheet, and the table contains only _two_ columns
   - Column A: containing key (string to be replaced for lookup)
   - Column B: containing their corresponding value to replace (string to replace key with)
 
